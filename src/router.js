@@ -1,6 +1,6 @@
 import { createRouter,createWebHistory } from 'vue-router'
 import Home from "./pages/Home.vue"
-import Test from "./pages/Test.vue"
+import Todo from "./pages/Todo.vue"
 // import Page1 from "./pages/Page1.vue"
 // import Page2 from "./pages/Page2.vue"
  
@@ -11,9 +11,9 @@ const routes = [
     component: Home
   },
   {
-    path: '/test',
-    name: 'test',
-    component: Test
+    path: '/todo',
+    name: 'todo',
+    component: Todo
   },
   // {
   //   path: '/Page1',

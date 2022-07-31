@@ -5,7 +5,7 @@
   <p>{{ count }}</p>
   <span @click="decrement">-</span>
 
-  <div @click="linkTo('test')">テストへ遷移</div>
+  <div @click="linkTo('todo')">Todoへ遷移</div>
 
   <div>
     <button @click="setIsClick">おす</button>
@@ -35,6 +35,8 @@ const decrement = () => {
 const setIsClick = () => {
   isClick.value = !isClick.value
 }
+
+
 const linkTo = (path) => {
   router.push(`/${path}`)
 }
