@@ -24,11 +24,12 @@
   <Btn @click="updateTodo"/>
 
   <p>{{ updateText }}</p>
+  <p>{{ stringToUpperCase }}</p>
 </template>
 
 <script setup>
 import Btn from '../components/Btn.vue'
-import { onMounted, ref } from "vue"
+import { onMounted, ref, computed, watch } from "vue"
 import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
@@ -46,8 +47,17 @@ const updateTodo = () => {
   localStorage.setItem('todo', updateText.value)
 }
 
+const stringToUpperCase = computed(() => {
+  return todoText.value.toUpperCase()
+})
+
 onMounted(() => {
   updateText.value = localStorage.getItem('todo')
+})
+
+watch(stringToUpperCase, (newValue, oldValue) => {
+  console.log('newValue', newValue);
+  console.log('oldValue', oldValue);
 })
 </script>
 
