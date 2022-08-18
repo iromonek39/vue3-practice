@@ -2,6 +2,7 @@
 import { ref, watch } from "vue"
 
 const selectVal = ref('北海道')
+const selectCityVal = ref('011000')
 
 const props = defineProps({
   name: {
@@ -28,12 +29,24 @@ watch(selectVal, (newVal, oldVal) => {
   <template v-if="props.name === 'prefectures'">
     <select
       v-model="selectVal"
-      :name="props.name"
-      :id="props.id">
+      :name="props.name">
       <option
         v-for="(item, index) in props.array"
         :key="index"
         :value="item.name">
+        {{ item.name }}
+      </option>
+    </select>
+  </template>
+
+  <template v-else>
+    <select
+      v-model="selectCityVal"
+      :name="props.name">
+      <option
+        v-for="(item, index) in props.array"
+        :key="index"
+        :value="item.id">
         {{ item.name }}
       </option>
     </select>
