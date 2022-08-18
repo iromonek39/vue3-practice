@@ -4,7 +4,7 @@ import { prefectures } from '../assets/js/prefectures'
 import SelectBox from '../components/SelectBox.vue'
 
 import axios from 'axios'
-import { onMounted, ref } from "vue"
+import { onMounted, computed, ref } from "vue"
 import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
@@ -13,6 +13,13 @@ const router = useRouter()
 const count = ref(0)
 const msg = 'Hello!'
 const isClick = ref(false)
+const selectedVal = ref('北海道')
+
+const setCities = computed(() => {
+  return prefectures.prefs.filter(item => {
+    return item.name === selectedVal.value
+  })
+})
 
 const increment = () => {
   count.value++
@@ -41,7 +48,6 @@ const linkTo = (path) => {
 
 onMounted(() => {
   doClick()
-  console.log(prefectures)
 })
 </script>
 
@@ -61,6 +67,11 @@ onMounted(() => {
   </div>
 
   <SelectBox
+    v-model="selectedVal"
     :name="'prefectures'"
     :array="prefectures.prefs"/>
+
+  <SelectBox
+    :name="'cities'"
+    :array="setCities[0]"/>
 </template>
