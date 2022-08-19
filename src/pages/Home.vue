@@ -5,7 +5,7 @@ import SelectBox from '../components/SelectBox.vue'
 import Btn from '../components/Btn.vue'
 
 import axios from 'axios'
-import { onMounted, computed, ref } from "vue"
+import { onMounted, computed, ref, reactive } from "vue"
 import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
@@ -17,7 +17,9 @@ const isClick = ref(false)
 const selectedVal = ref('北海道')
 const selectedCityVal = ref('011000')
 
-const temperature = reactive()
+const temperature = reactive({
+  data: {}
+})
 
 const setCities = computed(() => {
   return prefectures.prefs.filter(item => {
@@ -35,11 +37,12 @@ const setIsClick = () => {
   isClick.value = !isClick.value
 }
 
-const doClick = async () => {
+const getTemparaturesApi = async () => {
   const getApi = await axios
     .get('https://weather.tsukumijima.net/api/forecast?city=' + selectedCityVal.value)
     .then(res => {
       console.log(res.data)
+      temperature.data = res.data
     })
     .catch(err => {
       console.log(err)
@@ -51,7 +54,7 @@ const linkTo = (path) => {
 }
 
 onMounted(() => {
-  doClick()
+  getTemparaturesApi()
 })
 </script>
 
@@ -80,5 +83,12 @@ onMounted(() => {
     :name="'cities'"
     :array="setCities[0].citys"/>
   
-  <Btn @click.native="doClick"/>
+  <Btn @click="getTemparaturesApi"/>
+
+  <!-- <p>{{ temperature.data }}</p> -->
+  <p>{{ temperature.data.title }}</p>
+  <p>{{ temperature.data.description.bodyText }}</p>
+  <img
+    :src="temperature.data.forecasts[0].image.url"
+    :alt="temperature.data.forecasts[0].image.title">
 </template>
