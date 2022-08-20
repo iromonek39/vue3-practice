@@ -1,13 +1,20 @@
+<script setup>
+const props = defineProps({
+  label: {
+    type: String,
+    default: ''
+  }
+})
+</script>
+
 <template>
   <button class="btn-2">
-    API実行
+    {{ props.label }}
   </button>
 </template>
 
-<script setup>
-</script>
-
 <style scoped>
 .btn-2 {
+  background: #ddd;
 }
 </style>
