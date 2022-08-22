@@ -5,8 +5,7 @@ import SelectBox from '../components/SelectBox.vue'
 import Btn from '../components/Btn-2.vue'
 
 import axios from 'axios'
-import { 
-  onBeforeUnmount,
+import {
   onMounted,
   computed,
   ref,
@@ -23,7 +22,9 @@ const isClick = ref(false)
 const selectedVal = ref('北海道')
 const selectedCityVal = ref('011000')
 
-const temperature = ref({})
+const temperature = reactive({
+  data: {}
+})
 
 const setCities = computed(() => {
   return prefectures.prefs.filter(item => {
@@ -46,7 +47,7 @@ const getTemparaturesApi = async () => {
     .get('https://weather.tsukumijima.net/api/forecast?city=' + selectedCityVal.value)
     .then(res => {
       console.log(res.data)
-      temperature.value = res.data
+      temperature.data = res.data
     })
     .catch(err => {
       console.log(err)
@@ -94,12 +95,12 @@ onMounted(() => {
   <!-- <p>{{ temperature.data }}</p> -->
   <p>{{ temperature.title }}</p>
   <div
-    v-for="(item, key) in temperature.description"
+    v-for="(item, key) in temperature.data.description"
     :key="key">
     <p v-if="key === 'bodyText'">{{ item }}</p>
   </div>
   <div
-    v-for="(item, index) in temperature.forecasts"
+    v-for="(item, index) in temperature.data.forecasts"
     :key="index">
     {{ item.date }}
     <img
