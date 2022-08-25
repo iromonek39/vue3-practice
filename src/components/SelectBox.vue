@@ -1,8 +1,10 @@
 <script setup>
 import { ref, watch } from "vue"
 
-const selectVal = ref('北海道')
-const selectCityVal = ref('011000')
+// const selectVal = ref('北海道')
+// const selectCityVal = ref('011000')
+
+const selectedVal = ref('')
 
 const props = defineProps({
   name: {
@@ -18,15 +20,15 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['selectedVal'])
+// const emit = defineEmits(['selectedVal'])
 
-watch(selectVal, (newVal, oldVal) => {
-  emit('selectedVal', selectVal)
-})
+// watch(selectVal, (newVal, oldVal) => {
+//   emit('selectedVal', selectVal)
+// })
 </script>
 
 <template>
-  <template v-if="props.name === 'prefectures'">
+  <!-- <template v-if="props.name === 'prefectures'">
     <select
       v-model="selectVal"
       :name="props.name">
@@ -37,20 +39,20 @@ watch(selectVal, (newVal, oldVal) => {
         {{ item.name }}
       </option>
     </select>
-  </template>
+  </template> -->
 
-  <template v-else>
+  <!-- <template v-else> -->
     <select
-      v-model="selectCityVal"
+      v-model="selectedVal"
       :name="props.name">
       <option
         v-for="(item, index) in props.array"
         :key="index"
-        :value="item.id">
+        :value="item.name">
         {{ item.name }}
       </option>
     </select>
-  </template>
+  <!-- </template> -->
 </template>
 
 <style scoped>
